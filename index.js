@@ -10,11 +10,13 @@ const app = express()
 const newspappers = [
     {
         name: 'thetimes',
-        address: 'https://www.thetimes.co.uk/environment'
+        address: 'https://www.thetimes.co.uk/environment',
+        base: ''
     },
     {
         name: 'guardian',
-        address: 'https://www.theguardian.com/environment/climate-crisis'
+        address: 'https://www.theguardian.com/environment/climate-crisis',
+        base: ''
     },
     {
         name: 'telegraph',
@@ -37,7 +39,7 @@ newspappers.forEach(newspapper => {
                 const url = $(this).attr('href')
                 articles.push({
                     title,
-                    url : newspapper.base + url ,
+                    url: newspapper.base + url,
                     source : newspapper.name
                 })
             })
