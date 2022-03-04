@@ -69,7 +69,7 @@ app.get('/news/:newspaperId', async (req, res) => {
 
             $('a:contains("climate")', html).each(function () {
                 const title = $(this).text()
-                const url = $(this).attr()
+                const url = $(this).attr('href')
                 specificArticles.push({
                     title,
                     url: newspaperBase + url,
