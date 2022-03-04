@@ -7,7 +7,7 @@ const axios = require('axios');
 const app = express()
 
 
-const newspappers = [
+const newspapers = [
     {
         name: 'thetimes',
         address: 'https://www.thetimes.co.uk/environment',
@@ -21,14 +21,14 @@ const newspappers = [
     {
         name: 'telegraph',
         address: 'https://www.telegraph.co.uk/climate-change/',
-        base : 'https://www.telegraph.co.uk'
+        base: 'https://www.telegraph.co.uk'
     }
 ]
 
 const articles = []
 
-newspappers.forEach(newspapper => {
-    axios.get(newspapper.address)
+newspapers.forEach(newspaper => {
+    axios.get(newspaper.address)
         .then(response => {
             const html = response.data
 
@@ -39,8 +39,8 @@ newspappers.forEach(newspapper => {
                 const url = $(this).attr('href')
                 articles.push({
                     title,
-                    url: newspapper.base + url,
-                    source : newspapper.name
+                    url: newspaper.base + url,
+                    source: newspaper.name
                 })
             })
 
@@ -53,6 +53,15 @@ app.get('/', (req, res) => {
 
 app.get('/news', (req, res) => {
     res.json(articles)
+})
+app.get('/news/:newspaperId', async (req, res) => {
+    const newspaperId = req.params.newspaperId
+
+    const newspaperAddress = newspapers.filter(newspaper => newspaper.name == newspaperId)[0].address
+
+    console.log(newspaperAddress)
+
+
 })
 
 app.listen(PORT, () => console.log(`server running on ${PORT}`))
